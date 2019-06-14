@@ -30,10 +30,7 @@ namespace fukusyuu0614
 
             label1.Left = rand.Next(ClientSize.Width - label1.Width);
             label1.Top = rand.Next(ClientSize.Height - label1.Height);
-            label2.Left = rand.Next(ClientSize.Width - label2.Width);
-            label2.Top = rand.Next(ClientSize.Height - label2.Height);
-            label3.Left = rand.Next(ClientSize.Width - label3.Width);
-            label3.Top = rand.Next(ClientSize.Height - label3.Height);
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -45,11 +42,19 @@ namespace fukusyuu0614
         {
             label1.Left += velx[0];
             label1.Top += vely[0];
-            label1.Left += velx[0];
-            label1.Top += velx[0];
-            if (label1.Left <= 0)
+            if (label1.Left < 0)
             {
                 velx[0] = -velx[0];
+                vely[0] = -vely[0];
+            }
+            Point p = PointToClient(MousePosition);
+            if ((p.X >= label1.Left)
+                && (p.X < label1.Right)
+                && (p.Y >= label1.Top)
+                && (p.Y < label1.Bottom)
+                )
+            {
+                timer1.Enabled = false;
             }
         }
     }
